@@ -181,14 +181,14 @@ function init() {
   bufferLoader = new BufferLoader(
     context,
     [
-      'clips/kick-808.wav',
-      'clips/clap-808.wav',
-      'clips/hihat-808.wav',
-      'clips/snare-808.wav',
-      'clips/openhat-808.wav',
-      'clips/kick-plain.wav',
-      'clips/perc-808.wav',
-      'clips/tom-808.wav'
+      'clips/kick-808.mp3',
+      'clips/clap-808.mp3'
+      'clips/hihat-808.mp3',
+      'clips/snare-808.mp3',
+      'clips/openhat-808.mp3',
+      'clips/kick-plain.mp3',
+      'clips/perc-808.mp3',
+      'clips/tom-808.mp3'
     ],
     finishedLoading
     );
