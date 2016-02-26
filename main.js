@@ -107,10 +107,13 @@ var fftArray;
 var examples = [{name: "None", data: "AAAAAAAAAAAAAAAAAAAAAA=="},
                 {name: "Basic Loop", data: "iIgICCIiAAAAAAAAAAAAAA=="},
                 {name: "Basic Loop 2", data: "oCAAAAACCAgAAAAAiIgAAA=="},
+                {name: "Basic Loop 3", data: "iIgAACIihJAAAAAAAAAAAA=="},
                 {name: "Swanky", data: "iIgICCIiAACAgAAACBASIg=="},
                 {name: "Tribal", data: "AAAAAAAAAAAAANttIiKIiA=="},
                 {name: "Cymbals", data: "CAgAAIiIAACkpwAAAAAAAA=="},
                 {name: "My ears!", data: "/////////////////////w=="}];
+
+var clipOffsets;
 
 function init() {
   var grid_table = document.getElementById("grid");
@@ -181,19 +184,21 @@ function init() {
   bufferLoader = new BufferLoader(
     context,
     [
-      'clips/kick-808.mp3',
-      'clips/clap-808.mp3'
-      'clips/hihat-808.mp3',
-      'clips/snare-808.mp3',
-      'clips/openhat-808.mp3',
-      'clips/kick-plain.mp3',
-      'clips/perc-808.mp3',
-      'clips/tom-808.mp3'
+      'samples/kick-808.wav',
+      'samples/clap-808.wav',
+      'samples/hihat-808.wav',
+      'samples/snare-808.wav',
+      'samples/openhat-808.wav',
+      'samples/kick-plain.wav',
+      'samples/perc-808.wav',
+      'samples/tom-808.wav'
     ],
     finishedLoading
     );
 
   bufferLoader.load();
+
+  clipOffsets = [0.0,-0.032,0.0,0.0,0.0,0.0,0.0,0.0]
 
   var url = window.location.href;
   if (url.indexOf("=") !== -1) {
@@ -280,6 +285,8 @@ function restartLoop() {
     }, stepDuration*2*1000);
 }
 
+var lastStepRendered;
+
 function updateGrid() {
     if (!playing)
         return;
@@ -291,7 +298,7 @@ function updateGrid() {
         var nextStep = mod(step + 1, numSteps);
         for (var r = 0; r < 8; r++) {
             if (grid[r][nextStep].cellActive) {
-                playSound(bufferList[r], appStartTime + (stepsSinceStart + 1)*stepDuration);
+                playSound(bufferList[r], appStartTime + (stepsSinceStart + 1)*stepDuration + clipOffsets[r]);
             }
         }
         previousStep = step;
