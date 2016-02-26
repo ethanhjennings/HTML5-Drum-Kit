@@ -1,3 +1,7 @@
+window.onerror = function(err) {
+    alert(err);
+}
+
 // Helper functions
 function mod(n, m) {
     return ((n % m) + m) % m;
@@ -174,7 +178,7 @@ function init() {
   compressorNode.connect(analyserNode);
   analyserNode.connect(context.destination);
 
-  window.setInterval(updateGrid, 5);
+  setInterval(updateGrid, 20);
 
 
 
